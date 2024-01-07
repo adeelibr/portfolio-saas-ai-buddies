@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +21,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
-        <body className={inter.className}>
+        <body className={cn('bg-secondary', inter.className)}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
