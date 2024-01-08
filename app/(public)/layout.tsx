@@ -2,7 +2,7 @@ import React, { PropsWithChildren } from "react";
 
 function AuthLayout({ children }: PropsWithChildren) {
   return (
-    <section className="flex items-center justify-center h-full mt-20">
+    <section className="h-full w-full">
       {children}
     </section>
   );

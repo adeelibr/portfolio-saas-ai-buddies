@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ClerkProvider } from "@clerk/nextjs";
+import ClientProviders from "@/components/ClientProviders";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 import { Inter } from "next/font/google";
@@ -19,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
+    <ClientProviders>
       <html lang="en" suppressHydrationWarning>
         <body className={cn('bg-secondary', inter.className)}>
           <ThemeProvider
@@ -32,6 +32,6 @@ export default function RootLayout({
           </ThemeProvider>
         </body>
       </html>
-    </ClerkProvider>
+    </ClientProviders>
   );
 }
