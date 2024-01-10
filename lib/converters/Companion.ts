@@ -59,3 +59,31 @@ export const getCompanionDocumentReferenceById = (
   userId: string,
   companionId: string
 ) => doc(companionRef(userId), companionId).withConverter(companionConvertor);
+
+export const getCompanionDocumentReferenceByCategoryIdOrCompanionName = (
+  userId: string,
+  categoryId: string,
+  companionName: string,
+) => {
+  let baseQuery = query(companionRef(userId));
+
+  if (categoryId && companionName) {
+    // If both categoryId and name are provided, apply both conditions
+    baseQuery = query(
+      baseQuery,
+      where("categoryId", "==", categoryId),
+      where("name", "==", companionName)
+    );
+  } else {
+    // Apply individual conditions if only one is provided
+    if (categoryId) {
+      baseQuery = query(baseQuery, where("categoryId", "==", categoryId));
+    }
+    if (companionName) {
+      baseQuery = query(baseQuery, where("name", "==", companionName));
+    }
+  }
+
+  // If neither categoryId nor name is provided, it will return all companions
+  return baseQuery.withConverter(companionConvertor);
+};
