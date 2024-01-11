@@ -9,5 +9,6 @@ export const config = {
     "/register",
     "/dashboard",
     "/dashboard/companion/:companionId*",
+    "/dashboard/companion/:companionId*/chat",
   ],
 };

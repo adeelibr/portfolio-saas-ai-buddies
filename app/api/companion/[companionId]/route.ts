@@ -12,8 +12,6 @@ export async function PATCH(
     const session = await getServerSession(nextAuthOptions);
     const body = await req.json();
 
-    console.log("body", body);
-
     const { name, description, instructions, seed, src, categoryId } = body;
 
     if (!session?.user) {
@@ -72,6 +70,59 @@ export async function PATCH(
       {
         success: true,
         message: "Companion updated successfully",
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Internal server error",
+      },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: { companionId: string } }
+) {
+  try {
+    const session = await getServerSession(nextAuthOptions);
+
+    if (!session?.user) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Unauthorized",
+        },
+        { status: 401 }
+      );
+    }
+
+    if (!params.companionId) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Companion ID is required",
+        },
+        { status: 400 }
+      );
+    }
+
+    const companionCollectionRef = adminDB
+      .collection("users")
+      .doc(session.user.id)
+      .collection("companion")
+      .doc(params.companionId);
+
+    await companionCollectionRef.delete();
+
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Companion deleted successfully",
       },
       { status: 200 }
     );

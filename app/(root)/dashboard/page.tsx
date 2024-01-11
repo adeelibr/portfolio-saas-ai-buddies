@@ -24,7 +24,7 @@ export default async function Dashboard({ searchParams }: DashboardProps) {
 
   const companions = (await getDocs(companionsQuery)).docs.map((doc) =>
     doc.data()
-  );
+  ) || [];
 
   return (
     <main className="p-4 space-y-2">
