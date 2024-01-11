@@ -9,8 +9,6 @@ export async function POST(req: Request) {
     const session = await getServerSession(nextAuthOptions);
     const body = await req.json();
 
-    console.log('body', body);
-
     const { name, description, instructions, seed, src, categoryId } = body;
 
     if (!session?.user) {

@@ -8,7 +8,6 @@ import { Card, CardFooter, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 function CompanionsList({ companions }: { companions: Companion[] }) {
-  console.log(companions);
   if (companions?.length === 0) {
     return (
       <div className="pt-10 flex flex-col items-center justify-center space-y-3">

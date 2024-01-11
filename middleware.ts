@@ -8,6 +8,7 @@ export const config = {
     "/chat/:id*",
     "/register",
     "/dashboard",
+    "/dashboard/:allPaths*",
     "/dashboard/companion/:companionId*",
     "/dashboard/companion/:companionId*/chat",
   ],
