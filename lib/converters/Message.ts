@@ -37,8 +37,8 @@ const messageConvertor: FirestoreDataConverter<Message> = {
       id: snapshot.id,
       role: data.role,
       content: data.content,
-      createdAt: data.description?.toDate(),
-      updatedAt: data.instructions?.toDate(),
+      createdAt: data.createdAt?.toDate(),
+      updatedAt: data.updatedAt?.toDate(),
     };
 
     return sub;
