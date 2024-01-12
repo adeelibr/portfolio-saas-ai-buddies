@@ -2,6 +2,7 @@
 ("");
 import { nextAuthOptions } from "@/auth";
 import { DarkModeToggle } from "@/components/DarkModeToggle";
+import UserButton from "@/components/UserButton";
 import { Button } from "@/components/ui/button";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
@@ -10,9 +11,9 @@ import { redirect } from "next/navigation";
 async function HomePage() {
   const session = await getServerSession(nextAuthOptions);
 
-  if (session?.user?.id) {
-    redirect("/dashboard");
-  }
+  // if (session?.user?.id) {
+  //   redirect("/dashboard");
+  // }
 
   return (
     <div className="bg-slate-300 dark:bg-blue-500">
@@ -44,25 +45,16 @@ async function HomePage() {
               <ul className="flex items-center gap-6 text-sm">
                 <li>
                   <Link
-                    className="text-gray-500 dark:text-muted transition hover:text-gray-500/75"
+                    className="text-gray-500 dark:text-white transition hover:text-gray-500/75"
                     href="/"
                   >
                     Home
                   </Link>
                 </li>
-                {session?.user?.image ? (
+                {session?.user?.image ? null : (
                   <li>
                     <Link
-                      className="text-gray-500 dark:text-muted transition hover:text-gray-500/75"
-                      href="/dashboard"
-                    >
-                      Dashboard
-                    </Link>
-                  </li>
-                ) : (
-                  <li>
-                    <Link
-                      className="text-gray-500 dark:text-muted transition hover:text-gray-500/75"
+                      className="text-gray-500 dark:text-white transition hover:text-gray-500/75"
                       href="/dashboard"
                     >
                       Login
@@ -74,16 +66,43 @@ async function HomePage() {
 
             <div className="flex items-center gap-4">
               <DarkModeToggle />
+              {session?.user.id && (
+                <Link
+                  className="text-gray-500 dark:text-white transition hover:text-gray-500/75"
+                  href="/dashboard"
+                  prefetch={false}
+                >
+                  Go to Dashboard,
+                  <span className="font-bold ml-2">
+                    {session?.user?.name!.split(" ")?.[0] || "User"}
+                  </span>
+                </Link>
+              )}
+              {session?.user.id && <UserButton session={session} />}
             </div>
           </div>
         </div>
       </header>
 
-      <section className="bg-gray-300 dark:bg-gray-900 text-white">
+      <section className="bg-gray-200 dark:bg-gray-900 text-white">
         <div className="mx-auto max-w-screen-xl px-4 py-32 lg:flex lg:h-screen lg:items-center">
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="bg-gradient-to-r from-green-500 via-blue-500 to-purple-600 bg-clip-text text-3xl font-extrabold text-transparent sm:text-5xl">
-              Have an AI buddy
+              Have an
+              <span className="text-green-500 mx-1 font-extrabold relative inline-block stroke-current">
+                AI buddy
+                <svg
+                  className="absolute -bottom-0.5 w-full max-h-1.5"
+                  viewBox="0 0 55 5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M0.652466 4.00002C15.8925 2.66668 48.0351 0.400018 54.6853 2.00002"
+                    strokeWidth="2"
+                  ></path>
+                </svg>
+              </span>
               <span className="sm:block"> by your side. </span>
             </h1>
 
