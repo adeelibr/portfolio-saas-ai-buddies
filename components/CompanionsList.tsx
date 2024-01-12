@@ -3,9 +3,11 @@ import { Companion } from "@/lib/converters/Companion";
 import Link from "next/link";
 import Image from "next/image";
 
-import { Edit2Icon, MessagesSquareIcon } from "lucide-react";
+import { Edit2Icon, MessagesSquareIcon, PlusIcon } from "lucide-react";
 import { Card, CardFooter, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+
+import CreateBuddiesButton from "@/components/CreateBuddiesButton";
 
 function CompanionsList({ companions }: { companions: Companion[] }) {
   if (companions?.length === 0) {
@@ -14,9 +16,12 @@ function CompanionsList({ companions }: { companions: Companion[] }) {
         <div className="relative w-60 h-60 opacity-40">
           <Image fill className="grayscale" alt="Empty" src="/empty.png" />
         </div>
-        <p className="text-sm text-muted-foreground text-center tracking-tighter">
-          No companion found.
-        </p>
+        <div className="flex flex-col items-center gap-3">
+          <p className="text-sm text-muted-foreground text-center tracking-tighter">
+            No companion found.
+          </p>
+          <CreateBuddiesButton />
+        </div>
       </div>
     );
   }
